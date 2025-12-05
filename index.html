@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pathways Finance</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Pathways Finance · Bilingual Financial Literacy</p>
+      <h1 id="headline">Built for families who budget in two worlds</h1>
+      <p id="subhead" class="subtitle">
+        Track U.S. expenses, plan remittances, and learn finance together with bilingual lessons.
+      </p>
+      <div class="pill-row">
+        <span class="pill">Budgeting + Remittances</span>
+        <span class="pill">Family Learning Mode</span>
+        <span class="pill">Community sponsored</span>
+      </div>
+      <div class="actions">
+        <button id="cta-start" class="btn primary">Start your bilingual plan</button>
+        <button id="cta-learn" class="btn ghost">Preview lessons</button>
+      </div>
+    </div>
+    <div class="language-switcher">
+      <label for="language">Language</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+      <small class="muted">More languages coming soon</small>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel" id="summary-panel">
+      <div class="panel-head">
+        <h2 id="summary-title">Family dashboard</h2>
+        <p id="summary-copy" class="muted">A blended view of budgets, remittances, and learning progress.</p>
+      </div>
+      <div class="grid-3">
+        <div class="stat">
+          <p class="muted" id="budget-label">Monthly budget</p>
+          <p class="stat-value" id="budget-total">$0</p>
+          <div class="progress"><div id="budget-progress" class="progress-bar"></div></div>
+          <small class="muted" id="budget-hint">Remaining after bills & remittances</small>
+        </div>
+        <div class="stat">
+          <p class="muted" id="remit-label">Planned remittances</p>
+          <p class="stat-value" id="remit-total">$0</p>
+          <div class="progress"><div id="remit-progress" class="progress-bar orange"></div></div>
+          <small class="muted" id="remit-hint">Includes fees & FX buffer</small>
+        </div>
+        <div class="stat">
+          <p class="muted" id="lesson-label">Lesson streak</p>
+          <p class="stat-value" id="lesson-total">0 days</p>
+          <div class="progress"><div id="lesson-progress" class="progress-bar teal"></div></div>
+          <small class="muted" id="lesson-hint">Family Learning Mode</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="planning-panel">
+      <div class="panel-head">
+        <h2 id="planning-title">Budget & remittance planner</h2>
+        <p id="planning-copy" class="muted">Plan bills, savings, and cross-border support with transparent fees.</p>
+      </div>
+      <div class="grid-2">
+        <form id="budget-form" class="card form-card">
+          <div class="card-head">
+            <h3 id="budget-form-title">Add budget item</h3>
+            <p id="budget-form-copy" class="muted">Track bills, groceries, or savings goals.</p>
+          </div>
+          <label for="budget-name" id="budget-name-label">Name</label>
+          <input id="budget-name" name="name" required />
+          <label for="budget-amount" id="budget-amount-label">Amount (USD)</label>
+          <input id="budget-amount" name="amount" type="number" step="0.01" required />
+          <label for="budget-category" id="budget-category-label">Category</label>
+          <select id="budget-category" name="category">
+            <option value="housing">Housing</option>
+            <option value="food">Food</option>
+            <option value="transport">Transport</option>
+            <option value="savings">Savings</option>
+            <option value="other">Other</option>
+          </select>
+          <button class="btn primary" type="submit" id="budget-submit">Add item</button>
+        </form>
+
+        <form id="remit-form" class="card form-card">
+          <div class="card-head">
+            <h3 id="remit-form-title">Plan a remittance</h3>
+            <p id="remit-form-copy" class="muted">Estimate fees and FX buffer for your transfer.</p>
+          </div>
+          <label for="remit-name" id="remit-name-label">Recipient</label>
+          <input id="remit-name" name="name" required />
+          <label for="remit-amount" id="remit-amount-label">Amount (USD)</label>
+          <input id="remit-amount" name="amount" type="number" step="1" required />
+          <label for="remit-country" id="remit-country-label">Country</label>
+          <select id="remit-country" name="country">
+            <option value="IN">India</option>
+            <option value="MX">Mexico</option>
+            <option value="PH">Philippines</option>
+            <option value="NG">Nigeria</option>
+            <option value="CN">China</option>
+          </select>
+          <label for="remit-fee" id="remit-fee-label">Expected fee (USD)</label>
+          <input id="remit-fee" name="fee" type="number" step="0.01" value="5" />
+          <label for="remit-rate" id="remit-rate-label">FX buffer (%)</label>
+          <input id="remit-rate" name="fx" type="number" step="0.1" value="1.5" />
+          <button class="btn primary" type="submit" id="remit-submit">Save transfer</button>
+        </form>
+      </div>
+
+      <div class="grid-2">
+        <div class="card list-card">
+          <div class="card-head">
+            <h3 id="budget-list-title">Your budget</h3>
+            <p id="budget-list-copy" class="muted">Sorted by category with totals.</p>
+          </div>
+          <ul id="budget-list" class="item-list"></ul>
+          <div class="total-row">
+            <span id="budget-total-label">Total</span>
+            <span id="budget-total-value">$0</span>
+          </div>
+        </div>
+
+        <div class="card list-card">
+          <div class="card-head">
+            <h3 id="remit-list-title">Remittances</h3>
+            <p id="remit-list-copy" class="muted">See fees and FX buffer for every transfer.</p>
+          </div>
+          <ul id="remit-list" class="item-list"></ul>
+          <div class="total-row">
+            <span id="remit-total-label">Total with fees</span>
+            <span id="remit-total-value">$0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="learning-panel">
+      <div class="panel-head">
+        <h2 id="learning-title">Family Learning Mode</h2>
+        <p id="learning-copy" class="muted">Short, bilingual lessons you can complete together.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card lesson" data-lesson="budgeting">
+          <header>
+            <p class="eyebrow" id="lesson-budget-tag">Lesson · Parent + Teen</p>
+            <h3 id="lesson-budget-title">Smart budgeting 101</h3>
+          </header>
+          <p id="lesson-budget-copy">Learn the 50/30/20 method and how to add remittances.</p>
+          <ul class="checklist" id="lesson-budget-list">
+            <li>Set a weekly check-in</li>
+            <li>Create categories together</li>
+            <li>Decide on a savings goal</li>
+          </ul>
+          <button class="btn secondary" data-action="complete" data-lesson="budgeting" id="lesson-budget-btn">Mark done</button>
+        </article>
+
+        <article class="card lesson" data-lesson="remittance">
+          <header>
+            <p class="eyebrow" id="lesson-remit-tag">Lesson · Parent</p>
+            <h3 id="lesson-remit-title">Compare remittance fees</h3>
+          </header>
+          <p id="lesson-remit-copy">Spot hidden fees, FX spreads, and transfer timing.</p>
+          <ul class="checklist" id="lesson-remit-list">
+            <li>Check two providers</li>
+            <li>Schedule transfers after payday</li>
+            <li>Share rates with family</li>
+          </ul>
+          <button class="btn secondary" data-action="complete" data-lesson="remittance" id="lesson-remit-btn">Mark done</button>
+        </article>
+
+        <article class="card lesson" data-lesson="credit">
+          <header>
+            <p class="eyebrow" id="lesson-credit-tag">Lesson · Teen</p>
+            <h3 id="lesson-credit-title">Credit & taxes basics</h3>
+          </header>
+          <p id="lesson-credit-copy">Understand scores, safe borrowing, and filing basics.</p>
+          <ul class="checklist" id="lesson-credit-list">
+            <li>Know the on-time payment rule</li>
+            <li>Keep utilization under 30%</li>
+            <li>Save W-2s and receipts</li>
+          </ul>
+          <button class="btn secondary" data-action="complete" data-lesson="credit" id="lesson-credit-btn">Mark done</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="trust-panel">
+      <div class="panel-head">
+        <h2 id="trust-title">Built for immigrant families</h2>
+        <p id="trust-copy" class="muted">Culturally aware onboarding, transparent data, and sponsor-backed pricing.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card trust-card">
+          <h3 id="trust-culture-title">Cultural onboarding</h3>
+          <p id="trust-culture-copy">Select country of origin, preferred language, and remittance cadence at signup.</p>
+        </div>
+        <div class="card trust-card">
+          <h3 id="trust-privacy-title">Data privacy first</h3>
+          <p id="trust-privacy-copy">Read-only connections with plain-language permissions and local data tips.</p>
+        </div>
+        <div class="card trust-card">
+          <h3 id="trust-sponsor-title">Sponsor-backed</h3>
+          <p id="trust-sponsor-copy">Local banks and community partners keep core features free for families.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p id="footer-text">Pathways Finance · Bilingual budgeting and remittance education.</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
